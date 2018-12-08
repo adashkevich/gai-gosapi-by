@@ -1,0 +1,22 @@
+export const environment = {
+  production: false,
+  baseUrl: 'http://localhost:8000',
+  apiPrefix: 'api',
+  apiVersion: 'v1',
+  jspMinPublishSkillsCount: 3,
+  maxSkillsCount: 20,
+  maxQuestionsLength: 10,
+  maxCoverLettersCount: 5,
+  maxInvitedUsersCount: 10,
+  maxExperienceCount: 10,
+  searchDebounceTime: 600,
+  maxAssignedUser: 50,
+  quickViewLimit: 1,
+  // TODO: remove OTHER_REASON when backend implements it in deletion reasons (declared in UPPER_SNAKE_CASE to attract attention)
+  OTHER_REASON: 'Other reason',
+  userAccountIsDisabled: 'User account is disabled.',
+  showTechnicalInfo: true,
+  deletedCompanyUserResponse: 'There is deleted user with certain email in company.',
+  maxCommentTitleInputLength: 128,
+  maxCommentBodyInputLength: 2048,
+};

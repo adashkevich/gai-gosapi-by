@@ -1,0 +1,83 @@
+<mat-card>
+  <mat-card-title>
+    <h4> Send for GAI</h4>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="gaiForm" (ngSubmit)="onSubmitAddress()">
+      <input style='display:none' id="input-file-id" multiple type="file" (change)="onFileChange($event)" accept="image/*" />
+      <label for="input-file-id" class="md-button md-raised md-primary">{{fileInputText()}}</label>
+      <div *ngIf="isFileSelected()">
+      <mat-list  *ngFor='let photo of this.gaiForm.controls.photos.value '>
+        {{photo.name}}
+        </mat-list>
+        </div>
+      <mat-form-field>
+      <input type="text" matInput placeholder="Your Full Name" formControlName="reporter_name">
+    </mat-form-field>
+    <app-control-messages [form]="gaiForm"
+                          [control]="f.reporter_name"
+                          [submitted]="isSubmitted"
+                          [errors]="errors">
+    </app-control-messages>
+
+    <mat-form-field>
+                <mat-select placeholder="Choose your city" formControlName="city_id"  required>
+                  <mat-option *ngFor="let city of cities" [value]="city.id">
+                    {{city.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <app-control-messages [form]="gaiForm"
+                                    [control]="f.city_id"
+                                    [submitted]="isSubmitted"
+                                    [errors]="errors">
+              </app-control-messages>
+    <mat-form-field>
+    <input type="text" matInput placeholder="Enter your address" formControlName="reporter_residence">
+  </mat-form-field>
+  <app-control-messages [form]="gaiForm"
+                        [control]="f.reporter_residence"
+                        [submitted]="isSubmitted"
+                        [errors]="errors">
+  </app-control-messages>
+
+  <mat-form-field>
+  <input type="email" matInput placeholder="Email" formControlName="reporter_email">
+</mat-form-field>
+<app-control-messages [form]="gaiForm"
+                      [control]="f.reporter_email"
+                      [submitted]="isSubmitted"
+                      [errors]="errors">
+</app-control-messages>
+
+  <mat-form-field>
+  <input type="text" matInput placeholder="Car number" formControlName="car_number">
+</mat-form-field>
+<app-control-messages [form]="gaiForm"
+                      [control]="f.car_number"
+                      [submitted]="isSubmitted"
+                      [errors]="errors">
+</app-control-messages>
+
+<mat-form-field>
+<textarea type="text" matInput placeholder="Describe Place of Incident" formControlName="place">
+    </textarea>
+</mat-form-field>
+<app-control-messages [form]="gaiForm"
+                    [control]="f.place"
+                    [submitted]="isSubmitted"
+                    [errors]="errors">
+</app-control-messages>
+
+<mat-action-row>
+<button type="submit" mat-raised-button color="primary" [disabled]='!gaiForm.valid'>
+  Send Report
+  <mat-icon matSuffix>save</mat-icon>
+</button>
+</mat-action-row>
+      </form>
+  </mat-card-content>
+
+
+
+</mat-card>
