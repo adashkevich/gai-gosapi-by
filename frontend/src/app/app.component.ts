@@ -34,5 +34,4 @@ export class AppComponent {
   openSidenav() {
     this.showSidenav = true;
   }
-
 }

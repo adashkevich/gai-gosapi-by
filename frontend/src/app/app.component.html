@@ -1,20 +1,17 @@
 <app-layout>
-      <app-sidenav [open]="showSidenav" (closeMenu)="closeSidenav()">
-        <span class="toolbar-spacer"></span>
+  <app-sidenav [open]="showSidenav" (closeMenu)="closeSidenav()">
+    <span class="toolbar-spacer"></span>
 
-        <mat-list-item (click)="closeSidenav()">
-          <mat-icon mat-list-icon>close</mat-icon>
-          <span mat-line>Close</span>
-        </mat-list-item>
-        <app-nav-item *ngFor="let item of publicLinks"
-                      (navigate)="closeSidenav()"
-                      [routerLink]="item.routerLink"
-                      [icon]="item.icon">
-          {{item.caption}}
-        </app-nav-item>
-      </app-sidenav>
-      <app-toolbar (openMenu)="openSidenav()">
-        <span class="toolbar-spacer"></span>
-        </app-toolbar>
-      <router-outlet></router-outlet>
-    </app-layout>
+    <mat-list-item (click)="closeSidenav()">
+      <mat-icon mat-list-icon>close</mat-icon>
+      <span mat-line>Close</span>
+    </mat-list-item>
+    <app-nav-item *ngFor="let item of publicLinks" (navigate)="closeSidenav()" [routerLink]="item.routerLink" [icon]="item.icon">
+      {{item.caption}}
+    </app-nav-item>
+  </app-sidenav>
+  <app-toolbar (openMenu)="openSidenav()">
+    <span class="toolbar-spacer"></span>
+  </app-toolbar>
+  <router-outlet></router-outlet>
+</app-layout>
