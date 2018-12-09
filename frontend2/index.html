@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script src="javascripts/dropzone.js"></script>
+    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+    <script src="javascripts/locationpicker.jquery.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Gai GosAPI</title>
+
+    <script>
+        // Variables
+        var endpoint = 'http://localhost:3000'; //35.234.108.237
+    </script>
+</head>
+
+<body class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ГАИ.gosapi</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Сообщить о нарушении <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">О нас</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="row justify-content-md-center">
+    <div class="col-lg-8">
+        <form>
+            <p class="lead mb-4" style="margin-top: 24px;">
+                Сообщение о нарушении правил остановки и стоянки транспортных средств
+            </p>
+
+            <div class="form-group">
+                <label for="citySelect">Город</label>
+                <select class="form-control" id="citySelect" name="city_id">
+                    <option value="1">Минск</option>
+                    <option value="2">Гомель</option>
+                    <option value="3">Витебск</option>
+                    <option value="4">Брест</option>
+                    <option value="5">Гродно</option>
+                    <option value="6">Могилёв</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nameInput">Фамилия Имя</label>
+                <input type="text" class="form-control" id="nameInput" name="reporter_name" aria-describedby="nameInput" placeholder="Иванов Иван">
+                <!--<small id="nameInputHelp" class="form-text text-muted">Ваше персональные данные будет предоставленно только в письме.</small>-->
+            </div>
+            <div class="form-group">
+                <label for="phoneInput">Телефон</label>
+                <input type="text" class="form-control" id="phoneInput" name="reporter_phone" aria-describedby="phoneInput" placeholder="+375291234567">
+                <!--<small id="phoneInputHelp" class="form-text text-muted">Ваше персональные данные будет предоставленно только в письме.</small>-->
+            </div>
+            <div class="form-group">
+                <label for="residenceInput">Адрес проживания</label>
+                <input type="text" class="form-control" id="residenceInput" name="reporter_residence" aria-describedby="residenceInput" placeholder="Поперечная 12, кв 7">
+                <small id="residenceInputHelp" class="form-text text-muted">На этот адрес придёт письмо ответ с ГАИ.</small>
+            </div>
+            <div class="form-group">
+                <label for="emailInput">Электронный адресс</label>
+                <input type="email" class="form-control" id="emailInput" name="reporter_email" aria-describedby="emailInput" placeholder="example@gosapi.by">
+                <small id="emailInputHelp" class="form-text text-muted">С этой почты будет осуществлятся контроль за электронным обращением.</small>
+            </div>
+            <div class="form-group">
+                <label for="carNumberInput">Номер автомобиля</label>
+                <input type="text" class="form-control" id="carNumberInput" name="car_number" aria-describedby="carNumberInput" placeholder="1234 AB-7">
+                <!--<small id="carNumberInputHelp" class="form-text text-muted">Ваше персональные данные будет предоставленно только в письме.</small>-->
+            </div>
+
+            <input type="hidden" name="place">
+        </form>
+
+        <label>Фото нарушения</label>
+        <form action="http://localhost:3000/api/v1/photos/upload" method="post" enctype="multipart/form-data" class="dropzone" id="photos"></form>
+
+        <label>Место нарушения</label>
+        <div id="map" style="width: 100%; height: 400px;"></div>
+
+        <form style="margin: 16px auto 20px;">
+            <div id="submitSuccess" class="alert alert-success" role="alert" style="display: none;">
+                Ваше обращение приянто! На указанный вами email придёт копия отправленная в ГАИ.
+            </div>
+
+            <div id="submitFail" class="alert alert-danger" role="alert" style="display: none;">
+                Произошла неизвестная ошибка :(
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="witnessCheck" name="witness">
+                <label class="form-check-label" for="witnessCheck">Я готов выступить свидетелем</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Сообщить в ГАИ</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        if($('#map').width() < 400) {
+            $('#map').height($('#map').width());
+        }
+
+        $('#map').locationpicker({
+            location: {
+                latitude: 53.890839,
+                longitude: 27.537232
+            },
+            radius: 5,
+        });
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $('#map').locationpicker('location', {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                });
+            });
+        }
+
+        $('[type="submit"]').click(function (e) {
+            e.stopPropagation();e.preventDefault();
+            submitForm();
+        })
+    });
+
+    function getFormData() {
+        return {
+            reporter_name: $('[name="reporter_name"]').val(),
+            reporter_phone: $('[name="reporter_phone"]').val(),
+            reporter_residence: $('[name="reporter_residence"]').val(),
+            reporter_email: $('[name="reporter_email"]').val(),
+            car_number: $('[name="car_number"]').val(),
+            photos: $('#photos').get(0).dropzone.getAcceptedFiles(),
+            city_id: $('[name="city_id"]').val(),
+        };
+    }
+
+    function isFullFilled() {
+        var formData = getFormData();
+    }
+
+    function prepareFormData(callback) {
+        var formData = getFormData();
+        formData.photos_attributes = formData.photos.map(function (photo) { return {link: photo.xhr.responseText}; });
+        delete formData.photos;
+        var point = $('#map').locationpicker('location');
+        formData.location = 'POINT(${lat} ${lng})'.replace('${lat}', point.latitude).replace('${lng}', point.longitude);
+
+        var latlng = {lat: point.latitude, lng: point.longitude};
+        (new google.maps.Geocoder()).geocode({'location': latlng}, function(results, status) {
+            if (status === 'OK' && results[0]) {
+                formData.place = results[0].formatted_address;
+            }
+            callback && callback({report: formData});
+        });
+    }
+
+    function submitForm() {
+        prepareFormData(function (data) {
+            $.ajax(endpoint + '/api/v1/reports', {
+                method: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function() {
+                    $('#submitSuccess').show();
+                },
+                error: function() {
+                    $('#submitFail').show();
+                },
+            });
+        });
+    }
+</script>
+</body>
+</html>

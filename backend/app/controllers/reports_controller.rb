@@ -18,6 +18,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
 
     if @report.save
+      # GaiMailer.with(report: @report).report_email.deliver_later
       render json: @report, status: :created, location: @report
     else
       render json: @report.errors, status: :unprocessable_entity
@@ -46,6 +47,6 @@ class ReportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def report_params
-      params.require(:report).permit(:reporter_name, :reporter_phone, :reporter_residence, :reporter_email, :car_number, :place, :city_id, :photos => [])
+      params.require(:report).permit(:reporter_name, :reporter_phone, :reporter_residence, :reporter_email, :car_number, :place, :city_id, :location, :photos_attributes => [:link])
     end
 end

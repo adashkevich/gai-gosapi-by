@@ -1,0 +1,12 @@
+.dropzone {
+    border: 2px dashed #0087F7;
+    border-radius: 5px;
+    background: white;
+    margin: 0 auto 16px;
+}
+
+#reportIssueGuide img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

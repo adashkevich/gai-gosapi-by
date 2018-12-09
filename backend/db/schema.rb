@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181208095116) do
+ActiveRecord::Schema.define(version: 20181209113921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,11 +20,26 @@ ActiveRecord::Schema.define(version: 20181208095116) do
     t.string "name"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "chief"
+    t.string "name"
+    t.string "subdivisions"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_organizations_on_city_id"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.string "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "report_id"
+    t.string "file_file_name"
+    t.string "file_content_type"
+    t.integer "file_file_size"
+    t.datetime "file_updated_at"
     t.index ["report_id"], name: "index_photos_on_report_id"
   end
 
@@ -42,6 +57,7 @@ ActiveRecord::Schema.define(version: 20181208095116) do
     t.index ["city_id"], name: "index_reports_on_city_id"
   end
 
+  add_foreign_key "organizations", "cities"
   add_foreign_key "photos", "reports"
   add_foreign_key "reports", "cities"
 end

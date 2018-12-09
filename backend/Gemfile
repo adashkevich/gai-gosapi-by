@@ -39,3 +39,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #https://github.com/thoughtbot/paperclip
 gem 'paperclip', '~> 6.0.0'
+
+# https://github.com/googleapis/google-cloud-ruby/tree/master/google-cloud-storage
+gem 'google-cloud-storage'
